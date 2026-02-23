@@ -124,3 +124,10 @@ section {
     height: 100%;
     border: none;
 }
+
+.about{
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+}
