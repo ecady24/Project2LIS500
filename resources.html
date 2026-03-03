@@ -23,21 +23,28 @@
     </header>
 
     <main class="guide-layout">
+      <!-- Main Content Area -->
       <section class="guide-main">
         <!-- Introduction to Implicit Bias -->
         <div class="guide-box">
           <h2>What is Implicit Bias?</h2>
+          <!-- Core definition -->
           <p>
             Implicit bias refers to unconscious attitudes or stereotypes that
             affect our understanding, decisions, and actions. These biases
             operate automatically and often without our awareness.
           </p>
+          <!-- Reflection and interpretation -->
           <p>
             For many people, learning about implicit bias is surprising because
             it shows how our minds make quick judgments without our awareness.
             Understanding this helps us recognize that bias is not always
             intentional, but it still shapes how we treat others and how systems
             operate.
+          </p>
+
+          <p>
+            In algorithmic culture, implicit bias can be discussed through the lens of the "coded gaze," where the biases of a small, homogeneous group of creators are embedded into technology. Algorithms are often treated as "objective truth," which allows developers to remain blissfully unaware of the barriers they are creating. 
           </p>
 
           <h3>Learn More:</h3>
@@ -47,6 +54,7 @@
                 target="_blank" rel="noopener noreferrer"
                 >Stanford Encyclopedia of Philosophy – Implicit Bias</a
               >
+              <!-- Reflection tied to reading -->
               <p>This source highlights that implicit bias is complex, involving not just individual attitudes but also broader social and structural factors. We reflected on the tension between addressing bias at the personal level versus the systemic level, realizing that while our own unconscious associations matter, meaningful change also requires confronting institutional inequities. This perspective helped us think critically about how technology and AI can reproduce both individual and structural biases.</p>            </li>
         </div>
 
@@ -59,7 +67,8 @@
             evaluations (e.g., good, bad).
           </p>
 
-          <img src="binary-face-bigcode.gif" alt="">
+          <!-- Decorative/illustrative GIF -->
+          <img src="binary-face-bigcode.gif" alt="" class="implicit-img">
 
           <p>
             Taking the IAT can be uncomfortable, but it often reveals hidden
@@ -81,6 +90,24 @@
               >
             </li>
           </ul>
+        </div>
+
+        <!-- Explicit Bias Section -->
+        <div class="guide-box">
+          <h2>Insight on Explicit Bias</h2>
+          <img src="engineer.gif" alt="" class="insight-image">
+          <p>
+            Ruha Benjamin describes "NextGen Racism" through platforms like Yik Yak, where users post racist comments and anti-Black hatred that they might not say in person. This is a conscious rationalisation of white supremacy by a new generation. Historically, engineering was consciously constructed as a "white, male middle-class profession" to intentionally distinguish it from blue-collar work and female-associated crafts, trying to exclude women from the field.
+          </p>
+        </div>
+
+        <!-- Structural Inequality Section -->
+        <div class="guide-box">
+          <h2>Insight on Structural Inequality</h2>
+          <img src="inequality.jpg" alt="" class="insight-image">
+          <p>
+            Structural inequality refers to disadvantages embedded into the fabric of society, which Benjamin terms the "New Jim Code", technology that appears progressive but serves racial hierarchies. Data is not neutral; it reflects "power shadows" cast by historical systems like white supremacy, patriarchy, and colonialism. Asymmetry of power is seen in the 2008 mortgage crisis, where algorithms optimized for subprime mortgages led to the largest wipeout of Black wealth in U.S. history. Surveillance tools are often tested in poor and working communities first, where there is a low expectation that rights will be respected, further embedding systemic disadvantage into the environment.
+          </p>
         </div>
 
         <!-- Intersectionality Section -->
@@ -144,27 +171,60 @@
           </div>
           <p>This video demonstrates how “single stories” can flatten complex human experiences and reinforce power imbalances. We reflected on how even well-meaning narratives can unintentionally perpetuate stereotypes, and how seeking multiple perspectives is essential to creating more inclusive and equitable representations in society and technology.</p>
         </div>
+
+        <!-- Interactive Quiz Section -->
+        <section class="guide-box" id="quiz-section">
+          <h2>Quick Implicit Bias Quiz</h2>
+          <p>Test your understanding of implicit bias with a few quick questions:</p>
+        
+          <form id="bias-quiz">
+            <ol>
+              <li>
+                <label>Implicit bias is always intentional.</label><br/>
+                <input type="radio" name="q1" value="true" /> True<br/>
+                <input type="radio" name="q1" value="false" /> False
+              </li>
+              <li>
+                <label>Intersectionality considers multiple aspects of identity at once.</label><br/>
+                <input type="radio" name="q2" value="true" /> True<br/>
+                <input type="radio" name="q2" value="false" /> False
+              </li>
+              <li>
+                <label>Bias can influence technology even if the coder is well-meaning.</label><br/>
+                <input type="radio" name="q3" value="true" /> True<br/>
+                <input type="radio" name="q3" value="false" /> False
+              </li>
+            </ol>
+        
+            <!-- Button triggers JS scoring function -->
+            <button type="button" onclick="checkQuiz()">Submit</button>
+          </form>
+        
+          <!-- Result Display -->
+          <p id="quiz-result" style="font-weight: bold; margin-top: 15px;"></p>
+        </section>
         
       </section>
 
       <!-- Sidebar with key terms and additional resources -->
       <aside class="guide-sidebar">
-        <div class="guide-box">
+
+        <div class="guide-box key-terms">
           <h2>Key Terms</h2>
           <ul>
             <li>
-              <strong>Implicit Bias:</strong> Unconscious attitudes that
+              <strong class="term">Implicit Bias:</strong> Unconscious attitudes that
               influence behavior.
             </li>
             <li>
-              <strong>Explicit Bias:</strong> Conscious beliefs about groups.
+              <strong class="term">Explicit Bias:</strong> Conscious beliefs about groups.
             </li>
             <li>
-              <strong>Structural Inequality:</strong> Systemic disadvantage
+              <strong class="term">Structural Inequality:</strong> Systemic disadvantage
               embedded in institutions.
             </li>
             <li>
-              <strong>Intersectionality:</strong> Overlapping systems of
+              <strong class="term">Intersectionality:</strong> Overlapping systems of
               identity and power.
             </li>
           </ul>
@@ -194,5 +254,41 @@
         </div>
       </aside>
     </main>
+
+    <!-- JavaScript: Quiz Scoring -->
+    <script>
+      function checkQuiz() {
+        // Correct answers key
+        const answers = {
+          q1: "false",
+          q2: "true",
+          q3: "true"
+        };
+      
+        let score = 0;
+      
+        // Loop through questions and compare
+        for (let q in answers) {
+          const selected = document.querySelector(`input[name=${q}]:checked`);
+          if (selected && selected.value === answers[q]) {
+            score++;
+          }
+        }
+      
+        const result = document.getElementById("quiz-result");
+        // Display feedback based on score
+        if (score === 3) {
+          result.textContent = `Perfect! You scored 3/3`;
+          result.style.color = "#0b5cad";
+        } else if (score === 2) {
+          result.textContent = `Good job! You scored 2/3`;
+          result.style.color = "#0b8c5c";
+        } else {
+          result.textContent = `Keep learning! You scored 0/3`;
+          result.style.color = "#c53030";
+        }
+      }
+      </script>
+
   </body>
 </html>

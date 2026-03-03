@@ -95,12 +95,14 @@
 
         <h2>Vivi Tran</h2>
 
+        <!-- Short self description -->
         <p>
             I am a senior majoring in computer science, data science, and mathematics, with a minor in graphic design. 
             My academic interests include understanding how data, algorithms, and digital tools shape the way people experience the world.
             I enjoy collaborating with others and learning new technical skills.
         </p>
 
+        <!-- Subsection: Perspective -->
         <div class="subsection">
         <h3>Technology & Perspective</h3>
         <p>
@@ -111,6 +113,7 @@
         </p>
     </div>
 
+    <!-- Subsection: Motivation -->
     <div class="subsection">
         <h3>Why I Took This Class</h3>
         <p>
@@ -126,8 +129,67 @@
         </ul>
         </div>
     </section>
+
+    <!-- Audio for form submission -->
+    <audio id="submitSound" src="pop-sound.mp3" preload="auto"></audio>
+
+    <!-- Contact Form Section -->
+    <section class="about-box" id="contact-form-section">
+        <h2>Contact Us</h2>
+        <p>Have questions or want to share feedback? Send us a message!</p>
+      
+        <!-- Contact form -->
+        <form id="contactForm">
+            <!-- Name input -->
+            <label for="name">Name:</label><br/>
+            <input type="text" id="name" name="name" placeholder="Your Name" required><br/>
+            
+            <!-- Email input -->
+            <label for="email">Email:</label><br/>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required><br/>
+      
+            <!-- Message input -->
+            <label for="message">Message:</label><br/>
+            <textarea id="message" name="message" rows="5" placeholder="Your message here..." required></textarea><br/>
+      
+            <!-- Submit button -->
+             <button type="submit">Send Message</button>
+        </form>
+      
+        <!-- Result message after submission -->
+        <p id="contact-result" style="margin-top: 10px; font-weight: bold;"></p>
+    </section>
       
 </main>
 
+<!-- JavaScript: Contact Form Logic -->
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+    
+      // Get user input values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  const result = document.getElementById('contact-result');
+    
+  // Ensure all fields are filled
+      if(name && email && message){
+        // Play confirmation sound
+        const sound = document.getElementById('submitSound');
+        sound.currentTime = 0;
+        sound.play();
+
+        // Display success message
+        result.textContent = `Thank you, ${name}! Your message has been received.`;
+        result.style.color = "#0b5cad";
+    
+        this.reset();
+      } else { // Display error message
+        result.textContent = "Please fill out all fields.";
+        result.style.color = "#c53030";
+      }
+    });
+    </script>
 </body>
 </html>

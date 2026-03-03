@@ -1,5 +1,7 @@
+/* Global styles */
+
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif; /* Base font */
   background-color: #f4f7fa;
   color: #111827;
 }
@@ -11,12 +13,14 @@ h3 {
 }
 
 a {
-  color: #0b5cad;
+  color: #0b5cad; /* Link color */
 }
 
 a:hover {
-  color: #0b2e6b;
+  color: #0b2e6b; /* Darker on hover */
 }
+
+/* Header and nav */
 
 header {
   background: #162c47;
@@ -42,6 +46,8 @@ nav a:hover {
   border-bottom: 2px solid #94d2bd;
 }
 
+/* Main content */
+
 main {
   max-width: 1000px;
   margin: auto;
@@ -52,26 +58,83 @@ section {
   margin-bottom: 50px;
 }
 
+/* Hero section */
+
 .hero {
-  text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #162c47 0%, #94d2bd 100%);
-  color: white;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-.hero h2 {
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('tech-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h2 {
   font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
-.hero p {
+.hero-content p {
   font-size: 1.2rem;
-  max-width: 700px;
-  margin: auto;
-  color: #f0f8ff;
 }
 
+.hero-foreground {
+  max-width: 200px;
+  width: 20%;
+  margin-bottom: 20px;
+}
+
+/* Floating icons */
+.floating-icon {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  opacity: 0.75;
+  z-index: 1;
+}
+
+.floating-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating animations */
+.icon1 { top: 3%; left: 4%; animation: float1 8s infinite ease-in-out; }
+.icon2 { top: 3%; right: 4%; animation: float2 7s infinite ease-in-out; }
+.icon3 { bottom: 4%; left: 3%; animation: float3 9s infinite ease-in-out; }
+.icon4 { bottom: 3%; right: 5%; animation: float4 6s infinite ease-in-out; }
+
+@keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(15px,12px) rotate(10deg); } }
+@keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-12px,15px) rotate(-12deg); } }
+@keyframes float3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,-15px) rotate(18deg); } }
+@keyframes float4 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-10px,-18px) rotate(22deg); } }
+
+/* Card layouts */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -83,7 +146,18 @@ section {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
+
+/* Hover effects */
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #ffffff, #cde7f0);
+}
+
+/* Guide and sidebar layout */
+
 .guide-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -119,6 +193,8 @@ section {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Video container */
+
 .video-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -136,6 +212,8 @@ section {
   border: none;
 }
 
+/* About page */
+
 .about-layout {
   display: grid;
   gap: 30px;
@@ -149,6 +227,8 @@ section {
   border-radius: 10px;
   overflow: auto;
 }
+
+/* Profile pictures */
 
 .profile-image {
   float: left;
@@ -168,11 +248,15 @@ section {
   clear: both;
 }
 
+/* Guide sidebar */
+
 .guide-sidebar {
   position: sticky;
   top: 40px;
   align-self: start;
 }
+
+/* Responsive Media Queries */
 
 @media (max-width: 768px) {
   .guide-layout {
@@ -202,7 +286,7 @@ blockquote {
   color: #374151;
 }
 
-.guide-box img {
+.implicit-img {
   width: 100%;
   max-width: 500px;
   height: auto;
@@ -212,7 +296,7 @@ blockquote {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.guide-box img:hover {
+.implicit-img:hover {
   transform: scale(1.03);
   transition: transform 0.3s ease;
 }
@@ -224,4 +308,110 @@ blockquote {
   margin-top: 8px;
   font-style: italic;
   border-radius: 4px;
+}
+
+/* Quiz styling */
+
+#quiz-section form {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid #94d2bd;
+}
+
+#quiz-section button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #0b5cad;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#quiz-section button:hover {
+  background-color: #094a86;
+}
+
+/* Contact form styling */
+
+#contact-form-section form {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid #94d2bd;
+  display: flex;
+  flex-direction: column;
+}
+
+#contact-form-section input,
+#contact-form-section textarea {
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#contact-form-section input::placeholder,
+#contact-form-section textarea::placeholder {
+  color: black;
+}
+
+#contact-form-section button {
+  padding: 10px;
+  border: none;
+  background-color: #0b5cad;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#contact-form-section button:hover {
+  background-color: #094a86;
+}
+
+.about-box > p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+/* Key terms styling */
+
+.key-terms ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.key-terms li {
+  margin-bottom: 25px;
+}
+
+.key-terms .term {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.insight-image {
+  float: left;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 5px 18px 10px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.tech-hero-img {
+  float: left;
+  max-width: 220px;
+  margin: 0 20px 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
