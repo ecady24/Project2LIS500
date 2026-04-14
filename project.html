@@ -76,13 +76,91 @@
         <p>
           <ul>
 
-          <li>
-            <a
-              href="https://teachablemachine.withgoogle.com/models/NiinbJC6h/"
-            >
-              View Model on Teachable Machine
-            </a>
-          </li>
+        <script>
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/NiinbJC6h";
+
+    let model = null;
+    let webcam = null;
+    let maxPredictions = 0;
+    let running = false;
+
+    const startBtn = document.getElementById("start-btn");
+    const statusEl = document.getElementById("status");
+    const webcamContainer = document.getElementById("webcam-container");
+    const topPredictionEl = document.getElementById("top-prediction");
+    const labelContainer = document.getElementById("label-container");
+
+    startBtn.addEventListener("click", startClassifier);
+
+    async function startClassifier() {
+      if (running) return;
+
+      try {
+        statusEl.textContent = "Loading model...";
+
+        const modelURL = MODEL_URL + "model.json";
+        const metadataURL = MODEL_URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        statusEl.textContent = "Requesting camera access...";
+
+        webcam = new tmImage.Webcam(400, 400, true);
+        await webcam.setup();
+        await webcam.play();
+
+        webcamContainer.innerHTML = "";
+        webcamContainer.appendChild(webcam.canvas);
+
+        labelContainer.innerHTML = "";
+        for (let i = 0; i < maxPredictions; i++) {
+          const row = document.createElement("div");
+          row.textContent = "Loading predictions...";
+          labelContainer.appendChild(row);
+        }
+
+        running = true;
+        statusEl.textContent = "Show a fruit using the camera.";
+        window.requestAnimationFrame(loop);
+
+      } catch (error) {
+        console.error("Classifier failed:", error);
+        statusEl.textContent = "Error: " + error.message;
+      }
+    }
+
+    async function loop() {
+      if (!running) return;
+      webcam.update();
+      await predict();
+      window.requestAnimationFrame(loop);
+    }
+
+    async function predict() {
+      const prediction = await model.predict(webcam.canvas);
+
+      let highest = prediction[0];
+      for (let i = 1; i < prediction.length; i++) {
+        if (prediction[i].probability > highest.probability) {
+          highest = prediction[i];
+        }
+      }
+
+      topPredictionEl.textContent =
+        "Prediction: " + highest.className +
+        " (" + (highest.probability * 100).toFixed(1) + "%)";
+
+      for (let i = 0; i < prediction.length; i++) {
+        labelContainer.childNodes[i].textContent =
+          prediction[i].className + ": " +
+          (prediction[i].probability * 100).toFixed(1) + "%";
+      }
+    }
+  </script>
+
+            
+       
         </ul>
         </p>
       </section>
@@ -272,6 +350,11 @@
               target="_blank"
             >
               View Dataset
+            </a>
+            <a
+              href="https://teachablemachine.withgoogle.com/models/NiinbJC6h/"
+            >
+              View Model on Teachable Machine
             </a>
           </li>
         </ul>
