@@ -53,29 +53,172 @@
         <h2>Model Demonstration</h2>
 
         <div class="video-container">
-          <iframe
-            src=""
-            title="Model Demo Video"
-            allowfullscreen
-          >
-          </iframe>
+          <iframe src="" title="Model Demo Video" allowfullscreen> </iframe>
         </div>
       </section>
 
-      <!-- Reflection Section -->
       <section class="about-box">
-        <h2>Evelyn Cady's Project Reflection</h2>
-        
-      </section>
+        <h2>Project Reflection</h2>
+        <p>
+          In Unmasking AI, one of the central arguments is that technology is
+          not neutral. Instead, it reflects the values, assumptions, and
+          limitations of the people who design it and the data used to train it.
+          This idea became much more tangible through the process of building
+          our own machine learning model using a fruit image dataset. At first
+          glance, classifying fruits might seem simple and objective. However,
+          this project revealed that even basic classification systems are
+          shaped by bias, data limitations, and human decision-making.
+        </p>
 
-      <section class="about-box">
-        <h2>Derek Jone's Project Reflection</h2>
-        
-      </section>
+        <p>
+          The development of this machine learning algorithm was centered on
+          creating a fruit classifier using Teachable Machine. Each of us
+          contributed 100 original images, totaling 300 fruit samples. Our
+          dataset was organized into six categories: bananas, kiwis, oranges,
+          apples, blackberries, and strawberries. These categories provided a
+          range of visual differences in color, texture, and shape, which helped
+          us observe how the model distinguished between classes. This technical
+          exercise served a deeper purpose: to explore the sociotechnical
+          implications of algorithmic bias and the "coded gaze."
+        </p>
 
-      <section class="about-box">
-        <h2>Vivi Tran's Project Reflection</h2>
-        
+        <p>
+          The most resonant lesson is that "data is destiny." In the world of
+          machine learning, a model's performance is entirely dependent on the
+          information it is fed during the training phase. If we provided a
+          dataset that was limited or skewed, the model would inherit those
+          limitations. To avoid creating what Buolamwini calls "pale male
+          datasets," or collections that are heavily skewed toward a single,
+          often privileged demographic, it is important to be intentional about
+          the diversity of what we train these machines on.
+        </p>
+
+        <p>
+          We followed the three-step workflow of Teachable Machine: Gather,
+          Train, and Export.
+        </p>
+
+        <ol>
+          <li>Gather: We grouped our 300 original images into classes</li>
+          <li>
+            Train: We initiated the "Train Model" phase, where the computer
+            learns the patterns from our images.
+          </li>
+          <li>
+            Export: Once trained, we exported our model as a TensorFlow.js
+            model. This allowed us to integrate the classifier into our website
+            using p5.js and the ml5.js library
+          </li>
+        </ol>
+
+        <p>
+          If we had only photographed perfect, grocery-store-standard fruit
+          under studio lighting, our model would have inherited power shadows.
+          These are the systemic exclusions of a society reflected in data. For
+          example, if an algorithm only recognizes pristine, perfect fruit, it
+          effectively erases the reality of bruised, organic, or differently
+          shaped produce. Our group captured fruits from various angles and
+          under diverse lighting. We did not want the training data to lack
+          representation. Technical pitfalls, such as capturing too much empty
+          space before the fruit was in view, could lead to a bias where the
+          model identifies the room rather than the object.
+        </p>
+
+        <p>
+          This experience directly reflects Benjamin’s argument that bias is
+          embedded within data. The model does not understand what a “fruit” is
+          in any meaningful sense; it simply identifies patterns based on the
+          examples it has been given. If those examples are limited or skewed,
+          the model’s understanding will also be limited. A key idea is that
+          increasing the amount of data does not automatically solve problems of
+          bias. Simply adding more images without considering diversity and
+          representation would not necessarily improve the model’s fairness or
+          accuracy. This demonstrates that addressing bias requires thoughtful
+          data collection and critical reflection.
+        </p>
+
+        <p>
+          Model failure could happen at the intersection of overlapping traits,
+          such as color, shape, and lighting. An important concept that connects
+          both this project and Unmasking AI is intersectionality.
+          Intersectionality refers to the way different aspects of identity,
+          such as race, gender, class, and ability, overlap and interact to
+          shape people’s experiences of privilege and discrimination. While our
+          fruit classification model may seem unrelated to these social
+          categories, the process of building it reveals how systems can fail
+          when they do not account for variation and complexity. Just as our
+          model can struggle to recognize fruits in unfamiliar contexts,
+          real-world AI systems can fail when they are not designed with diverse
+          populations in mind.
+        </p>
+
+        <p>
+          Benjamin’s work emphasizes that bias in AI is not experienced equally.
+          People who exist at multiple intersections of identity often face
+          compounded disadvantages when interacting with technological systems.
+          For example, facial recognition technologies have been shown to be
+          less accurate for women of color compared to white men, not because of
+          a single factor, but because of overlapping biases in the data. Our
+          project, though much simpler, helped illustrate how these layered
+          issues can emerge. If our dataset lacked variation in even basic
+          dimensions like lighting or angle, the model’s performance suffered.
+        </p>
+
+        <p>
+          The project also highlighted the role of human decision-making and
+          power in technological systems. Every step of the process, from
+          choosing which fruits to include, to deciding how to collect images,
+          to labeling the data, involved subjective choices. These decisions
+          shaped the behavior of the model in ways that were not always
+          immediately obvious. This aligns with Benjamin’s argument that
+          technology reflects the priorities and perspectives of its creators.
+          Machine learning is not just a technical process, but a social one.
+        </p>
+
+        <p>
+          Buolamwini explains that the act of classification is never neutral.
+          It is a subjective exercise of power where the decider determines who
+          or what is included or excluded. We are acting as the arbiters of
+          truth for our algorithm. This process made the concept of the "coded
+          gaze" particularly resonant. The coded gaze describes how the
+          priorities and prejudices of those who shape technology are embedded
+          into the tools they create. If the default environment for our
+          training was a clean kitchen counter, the model might fail to see a
+          fruit held in a hand or placed in a garden, much like how
+          face-tracking software failed to see Buolamwini’s dark-skinned face
+          until she had a white mask.
+        </p>
+
+        <p>
+          Although our project was about fruit classification, it has a lot of
+          broader implications than this seemingly simple example. If a model
+          can misclassify something as straightforward as a banana or an apple
+          due to variations in lighting or background, the consequences of
+          similar errors in more complex systems could be significant. While a
+          fruit classifier is a low-stakes application, the underlying
+          techniques are identical to high-stakes systems used for hiring,
+          healthcare, and surveillance.
+        </p>
+
+        <p>
+          Benjamin highlights that such algorithms often reinforce existing
+          inequalities, especially when their training data is biased or
+          incomplete. Our project provided a glimpse of this problem on a
+          smaller scale. Through this assignment, we have learned that the
+          victory is not in achieving a perfect accuracy score, but in the
+          collective action of our group to document our process, acknowledge
+          our biases, and demand that technology serve all of us, and not just
+          some of us.
+        </p>
+
+        <p>
+          By engaging directly with the technology, we were able to move beyond
+          abstract discussions and see how bias can emerge in practice. This
+          aligns with Benjamin’s call for greater public engagement with AI,
+          particularly among those who are often excluded from its development.
+          Understanding how these systems work is an important step toward
+          creating more equitable and accountable technologies.
+        </p>
       </section>
 
       <!-- Links Section -->
@@ -97,7 +240,6 @@
           </li>
         </ul>
       </section>
-      
     </main>
   </body>
 </html>
