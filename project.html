@@ -70,6 +70,8 @@
         </p>
       </section>
 
+
+      
       <!-- Model Section -->
       <section class="about-box">
   <h2>Try the Model</h2>
@@ -127,7 +129,10 @@
         labelContainer.childNodes[i].innerHTML =
           prediction[i].className +
           ": " +
-          prediction[i].probability.toFixed(2);
+          const prob = prediction[i].probability * 100;
+
+labelContainer.childNodes[i].innerHTML =
+  prediction[i].className + ": " + prob.toFixed(1) + "%";
       }
     }
   </script>
