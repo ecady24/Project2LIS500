@@ -25,6 +25,7 @@
       <section class="about-box">
         <h2>Project Overview</h2>
 
+         <!-- Intro description -->
         <p>
           For this project, we developed an image classifier using the Teachable
           Machine tool provided by Google to recognize six different kinds of
@@ -70,115 +71,167 @@
         </p>
       </section>
 
+      <!--  Image Gallery (Dataset Samples)  -->
+      <div class="image-row">
+        <img
+          src="apple.JPG"
+          alt="Sample apple image used in the dataset"
+          class="content-img"
+        />
+        <img
+          src="banana.png"
+          alt="Sample banana image used in the dataset"
+          class="content-img"
+        />
+        <img
+          src="blackberries.png"
+          alt="Sample blackberries image used in the dataset"
+          class="content-img"
+        />
+        <img
+          src="kiwi.png"
+          alt="Sample kiwi image used in the dataset"
+          class="content-img"
+        />
+        <img
+          src="orange.png"
+          alt="Sample orange image used in the dataset"
+          class="content-img"
+        />
+        <img
+          src="strawberry.JPG"
+          alt="Sample strawberry image used in the dataset"
+          class="content-img"
+        />
+      </div>
 
-      
       <!-- Model Section -->
-<section class="about-box">
-  <h2>Try the Model</h2>
+      <section class="about-box">
+        <h2>Try the Model</h2>
 
-  <div>Teachable Machine Image Model</div>
+        <div>Teachable Machine Image Model</div>
 
-  <button type="button" onclick="init()" id="start-btn">Start</button>
-  <button type="button" onclick="stopModel()" id="stop-btn" style="display:none;">
-    Stop
-  </button>
+        <button type="button" onclick="init()" id="start-btn">Start</button>
+        <button
+          type="button"
+          onclick="stopModel()"
+          id="stop-btn"
+          style="display: none"
+        >
+          Stop
+        </button>
 
-  <div id="webcam-container"></div>
-  <div id="label-container"></div>
+        <!-- Webcam feed  -->
+        <div id="webcam-container"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+        <!-- Prediction results -->
+        <div id="label-container"></div>
 
-  <script type="text/javascript">
-    const URL = "https://teachablemachine.withgoogle.com/models/NiinbJC6h/";
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-    let model, webcam, labelContainer, maxPredictions;
-    let isRunning = false;
-    let animationFrameId;
+        <script type="text/javascript">
+          const URL =
+            "https://teachablemachine.withgoogle.com/models/NiinbJC6h/";
 
-    async function init() {
-      document.getElementById("start-btn").style.display = "none";
-      document.getElementById("stop-btn").style.display = "inline-block";
+          let model, webcam, labelContainer, maxPredictions;
+          let isRunning = false;
+          let animationFrameId;
 
-      isRunning = true;
+          // Initialize Model and Webcam
+          async function init() {
+            document.getElementById("start-btn").style.display = "none";
+            document.getElementById("stop-btn").style.display = "inline-block";
 
-      const modelURL = URL + "model.json";
-      const metadataURL = URL + "metadata.json";
+            isRunning = true;
 
-      model = await tmImage.load(modelURL, metadataURL);
-      maxPredictions = model.getTotalClasses();
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
 
-      const flip = true;
-      webcam = new tmImage.Webcam(200, 200, flip);
-      await webcam.setup();
-      await webcam.play();
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
 
-      document.getElementById("webcam-container").appendChild(webcam.canvas);
+            // Setup webcam
+            const flip = true;
+            webcam = new tmImage.Webcam(200, 200, flip);
+            await webcam.setup();
+            await webcam.play();
 
-      labelContainer = document.getElementById("label-container");
-      labelContainer.innerHTML = "";
+            document
+              .getElementById("webcam-container")
+              .appendChild(webcam.canvas);
 
-      for (let i = 0; i < maxPredictions; i++) {
-        labelContainer.appendChild(document.createElement("div"));
-      }
+            // Prepare prediction labels
+            labelContainer = document.getElementById("label-container");
+            labelContainer.innerHTML = "";
 
-      loop();
-    }
+            for (let i = 0; i < maxPredictions; i++) {
+              labelContainer.appendChild(document.createElement("div"));
+            }
 
-    async function loop() {
-      if (!isRunning) return;
+            loop();
+          }
 
-      webcam.update();
-      await predict();
+          // Continuous Prediction Loop
+          async function loop() {
+            if (!isRunning) return;
 
-      animationFrameId = window.requestAnimationFrame(loop);
-    }
+            webcam.update();
+            await predict();
 
-    async function predict() {
-      const prediction = await model.predict(webcam.canvas);
+            animationFrameId = window.requestAnimationFrame(loop);
+          }
 
-      for (let i = 0; i < maxPredictions; i++) {
-        const prob = prediction[i].probability * 100;
+          // Run Prediction
+          async function predict() {
+            const prediction = await model.predict(webcam.canvas);
 
-        labelContainer.childNodes[i].innerHTML =
-          prediction[i].className + ": " + prob.toFixed(1) + "%";
-      }
-    }
+            // Display probabilities for each class
+            for (let i = 0; i < maxPredictions; i++) {
+              const prob = prediction[i].probability * 100;
 
-    function stopModel() {
-      isRunning = false;
+              labelContainer.childNodes[i].innerHTML =
+                prediction[i].className + ": " + prob.toFixed(1) + "%";
+            }
+          }
 
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+          // Stop Model and Webcam
+          function stopModel() {
+            isRunning = false;
 
-      if (webcam) {
-        webcam.stop();
-      }
+            if (animationFrameId) {
+              cancelAnimationFrame(animationFrameId);
+            }
 
-      document.getElementById("webcam-container").innerHTML = "";
-      document.getElementById("label-container").innerHTML = "";
+            if (webcam) {
+              webcam.stop();
+            }
 
-      document.getElementById("start-btn").style.display = "inline-block";
-      document.getElementById("stop-btn").style.display = "none";
-    }
-  </script>
-</section>
+            document.getElementById("webcam-container").innerHTML = "";
+            document.getElementById("label-container").innerHTML = "";
+
+            document.getElementById("start-btn").style.display = "inline-block";
+            document.getElementById("stop-btn").style.display = "none";
+          }
+        </script>
+      </section>
 
       <!-- Video Section -->
-    <section class="about-box">
-  <h2>Model Demonstration</h2>
+      <section class="about-box">
+        <h2>Model Demonstration</h2>
 
-  <div class="video-container">
-    <video controls width="100%">
-      <source src="machineDemo.mov" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</section>
+        <div class="video-container">
+          <video controls width="100%">
+            <source src="machineDemo.mov" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
 
+      <!-- Reflection Section -->
       <section class="about-box">
         <h2>Project Reflection</h2>
+        <h3>Technology Is Not Neutral</h3>
         <p>
           In Unmasking AI, one of the central arguments is that technology is
           not neutral. Instead, it reflects the values, assumptions, and
@@ -190,6 +243,7 @@
           shaped by bias, data limitations, and human decision-making.
         </p>
 
+        <h3>Building the Fruit Classifier</h3>
         <p>
           The development of this machine learning algorithm was centered on
           creating a fruit classifier using Teachable Machine. Each of us
@@ -231,6 +285,7 @@
           </li>
         </ol>
 
+        <h3>Bias in Data Collection</h3>
         <p>
           If we had only photographed perfect, grocery-store-standard fruit
           under studio lighting, our model would have inherited power shadows.
@@ -257,6 +312,12 @@
           data collection and critical reflection.
         </p>
 
+        <!-- Inline concept image -->
+        <img
+          src="intersectionality.svg"
+          alt="Intersectionality illustration"
+          class="inline-img"
+        />
         <p>
           Model failure could happen at the intersection of overlapping traits,
           such as color, shape, and lighting. An important concept that connects
@@ -284,6 +345,7 @@
           dimensions like lighting or angle, the model’s performance suffered.
         </p>
 
+        <h3>Human Decisions and Power in AI</h3>
         <p>
           The project also highlighted the role of human decision-making and
           power in technological systems. Every step of the process, from
@@ -295,6 +357,12 @@
           Machine learning is not just a technical process, but a social one.
         </p>
 
+        <!-- Inline concept image -->
+        <img
+          src="coded-gaze.png"
+          alt="Illustration of coded gaze concept"
+          class="inline-img"
+        />
         <p>
           Buolamwini explains that the act of classification is never neutral.
           It is a subjective exercise of power where the decider determines who
@@ -320,6 +388,7 @@
           healthcare, and surveillance.
         </p>
 
+        <h3>Key Takeaways</h3>
         <p>
           Benjamin highlights that such algorithms often reinforce existing
           inequalities, especially when their training data is biased or
@@ -346,7 +415,7 @@
         <h2>Project Links</h2>
 
         <ul>
-
+          <!-- Dataset folder -->
           <li>
             <a
               href="https://drive.google.com/drive/folders/1q5Z0Aft2CC9dRZqwdf16QwhcO3HlXkX1?usp=sharing"
@@ -354,11 +423,10 @@
             >
               View Dataset
             </a>
-             </li>
+          </li>
+          <!-- Teachable Machine Model -->
           <li>
-            <a
-              href="https://teachablemachine.withgoogle.com/models/NiinbJC6h/"
-            >
+            <a href="https://teachablemachine.withgoogle.com/models/NiinbJC6h/">
               View Model on Teachable Machine
             </a>
           </li>

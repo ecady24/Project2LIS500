@@ -416,3 +416,63 @@ blockquote {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+
+.about-box h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  color: #0b2e6b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.about-box h3::before {
+  content: "◆";
+  color: #94d2bd;
+  font-size: 0.9rem;
+}
+
+button {
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+  background: #0b5cad;
+  color: white;
+  cursor: pointer;
+}
+
+#stop-btn {
+  background: #d90429;
+}
+
+.video-container {
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.image-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+  justify-content: center;
+}
+
+.content-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.inline-img {
+  float: right;
+  width: 150px;
+  margin: 10px 0 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
